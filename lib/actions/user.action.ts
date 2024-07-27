@@ -153,7 +153,7 @@ export const exchangePublicToken = async ({ publicToken, user}: exchangePublicTo
         const accessToken = response.data.access_token;
         const itemId = response.data.item_id;
 
-        console.log("D1 \n")
+        
 
 
         // get account information from plaid using the access token
@@ -162,7 +162,7 @@ export const exchangePublicToken = async ({ publicToken, user}: exchangePublicTo
         });
         const accountData = accountsResponse.data.accounts[0];
 
-        console.log("D1 \n")
+       
         // create a processor token for Dwolla using the access token and account ID
         const request :  ProcessorTokenCreateRequest = {
             access_token:accessToken,
@@ -173,7 +173,7 @@ export const exchangePublicToken = async ({ publicToken, user}: exchangePublicTo
         const processorTokenResponse = await plaidClient.processorTokenCreate(request);
         const processorToken = processorTokenResponse.data.processor_token;
 
-        console.log("D1 \n")
+     
 
         //create a fucnding source url for the account using the 
         //Dwolla customer ID processor token, and bank name
@@ -184,7 +184,7 @@ export const exchangePublicToken = async ({ publicToken, user}: exchangePublicTo
             bankName: accountData.name
         });
 
-        console.log("D1 \n")
+        
         //if funding source url is not created, throw an error
         if(!fundingSourceUrl)   throw Error("Error creating funding source");
 
@@ -199,16 +199,16 @@ export const exchangePublicToken = async ({ publicToken, user}: exchangePublicTo
             fundingSourceUrl,
             shareableId: encryptId(accountData.account_id),
         });
-        console.log("D1 \n")
+        
 
         //revalidate the path to reflect changes
         revalidatePath("/");
-        console.log("D1 \n")
+        
 
         //Return a success message
         return parseStringify({
             publicTokenExhange: "complete"
-        }) && console.log("D1  Complete\n");
+        });
         
         
     } catch (error){

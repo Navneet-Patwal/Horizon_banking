@@ -26,17 +26,16 @@ const PlaidLink = ({ user, variant}: PlaidLinkProps) => {
         router.push('/');
      }, [user]);
 
-     console.log("token ", token);
+     
 
      const config: PlaidLinkOptions = {
         token,
         onSuccess,
-        onExit: (err,data) => console.log("error",err),
      }
      
   
      const { open, ready,exit} = usePlaidLink(config);
-     console.log("ready ", ready);
+     
 
 
   return (
